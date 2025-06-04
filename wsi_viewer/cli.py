@@ -1,5 +1,7 @@
 import argparse
+
 from .viewer import WSIViewer
+
 
 def main():
     parser = argparse.ArgumentParser(description='CHIEF WSI查看器')

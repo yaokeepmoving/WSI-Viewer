@@ -1,16 +1,20 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException, Query, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, JSONResponse
-from pathlib import Path
 import logging
 import logging.handlers
 import os
 import signal
 import sys
 import traceback
+from pathlib import Path
+
+from fastapi import (FastAPI, File, HTTPException, Query, UploadFile,
+                     WebSocket, WebSocketDisconnect)
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+
 from .routers import wsi
 from .services.wsi_service import WSIService
+
 
 def setup_logging():
     """配置日志系统"""

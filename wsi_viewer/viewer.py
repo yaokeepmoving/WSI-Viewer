@@ -1,11 +1,12 @@
+import logging
 import os
+import shutil
 import subprocess
 import sys
 import time
 from pathlib import Path
-import shutil
-import logging
 from typing import Optional, Union
+
 
 class WSIViewer:
     def __init__(self, host: str = "0.0.0.0", 

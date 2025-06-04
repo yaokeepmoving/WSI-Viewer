@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Annotorious OpenSeadragon 示例</title>
+    <!-- 引入 OpenSeadragon 样式 -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/openseadragon@4.0.1/build/openseadragon/openseadragon.min.css"> -->
+    <!-- 引入 Annotorious 样式 -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/@annotorious/annotorious-openseadragon@2.1.0/dist/annotorious.min.css"> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/openseadragon@latest/build/openseadragon/openseadragon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@annotorious/openseadragon@latest/dist/annotorious-openseadragon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@annotorious/openseadragon@latest/dist/annotorious-openseadragon.css">    
+</head>
+<body>
+    <!-- OpenSeadragon 容器 -->
+    <div id="viewer" style="width: 800px; height: 600px; border: 1px solid #ccc;"></div>
+
+    <script>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. 初始化 OpenSeadragon 查看器
+            const viewer = OpenSeadragon({
+                id: 'viewer',  // 对应容器的 id
+                prefixUrl: 'D:/zy/proj_zy/medical_ai/WSI-Viewer/wsi_viewer/frontend/node_modules/openseadragon/build/openseadragon/images/',  // 图标路径
+                // tileSources: {
+                //     // 使用维基媒体的 IIIF 示例图像（蒙娜丽莎）
+                //     type: 'iiif',
+                //     manifestUri: 'https://iiif.wellcomecollection.org/presentation/b18035723/manifest'
+                // },
+                tileSources: {
+                    type: 'image',
+                    url: 'D:/zy/proj_zy/medical_ai/data/IMG_4214.png',
+                },     
+                showNavigator: true,  // 显示导航缩略图
+                zoomPerClick: 1.5,    // 点击缩放倍数
+                maxZoomLevel: 20      // 最大缩放级别
+            });
+
+            // Initialize the Annotorious plugin
+            // var anno = OpenSeadragon.Annotorious(viewer);
+            // var anno = Annotorious(viewer);
+            var anno = AnnotoriousOSD.createOSDAnnotator(viewer);
+
+            // Load annotations in W3C WebAnnotation format
+            // anno.loadAnnotations('annotations.w3c.json');
+
+            // Attach handlers to listen to events
+            anno.on('createAnnotation', function(annotation) {
+            // Do something
+            console.log('新注释创建:', annotation);
+            });
+
+            // // 2. 初始化 Annotorious 注释工具（关联到 OpenSeadragon 查看器）
+            // const anno = annotorious({
+            //     image: viewer,  // 必须传入 OpenSeadragon 实例
+            //     widgets: [      // 配置注释工具栏（可选）
+            //         'POINT', 'RECTANGLE', 'POLYGON', 'FREEHAND', 'TEXT'
+            //     ],
+            //     locale: 'en'    // 语言（支持 'en'、'zh' 等，需确认库是否支持）
+            // });
+
+            // // 3. 监听注释事件（可选）
+            // anno.on('createAnnotation', (annotation) => {
+            //     console.log('新注释创建:', annotation);
+            // });
+
+            // anno.on('updateAnnotation', (annotation) => {
+            //     console.log('注释更新:', annotation);
+            // });
+
+            // anno.on('deleteAnnotation', (annotation) => {
+            //     console.log('注释删除:', annotation);
+            // });
+        });
+    </script>
+</body>
+</html>
+    
